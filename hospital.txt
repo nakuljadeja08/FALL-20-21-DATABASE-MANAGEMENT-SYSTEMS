@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<h1 style="color:light-blue;">Details about your Hospital</h1>
+<form method="POST" action="">
+    <label for="first_name">First name:</label><br>
+    <input type="text" id="first_name" name="first_name" ><br><br>
+  <label for="p_id">Register_id:</label><br>
+  <input type="text" id="p_id" name="p_id"><br><br>
+    <button> Submit </button>
+</form>
+<br><br>
+<table border="1">
+    {% for i in details %}
+    <tr>
+        <td><h3 style="color:red;font:bold;">HOSPITAL NAME:</h3>{{i[0]}}</td>
+    </tr>
+    {% endfor %}
+</table>
+<br><br>
+<table border="1">
+    {% for i in doc_details %}
+    <tr>
+        <td><h3 style="color:red;font:bold;">DOCTOR NAME:</h3>{{i[0]}}</td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

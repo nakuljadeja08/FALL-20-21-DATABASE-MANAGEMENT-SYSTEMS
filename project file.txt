@@ -1,0 +1,211 @@
+create database dbms;
+use dbms;
+create table employee(name varchar(25),age int);
+insert into employee values("dhamnn",25);
+select *from employee;
+show tables;
+use dbms;
+create table users(name varchar(25) NOT NULL primary key,email varchar(25));
+desc users;
+use dbms;
+select * from users;
+use dbms;
+create table test_spot(spot_id varchar(25) NOT NULL primary key,spot_name varchar(25) NOT NULL,
+address varchar(25) NOT NULL,contact varchar(25) NOT NULL);
+
+create table hospital(h_id varchar(25) NOT NULL UNIQUE primary key,hospital_name varchar(25) NOT NULL
+,address varchar(25) NOT NULL,contact varchar(25)
+, spot_id varchar(25) NOT NULL,FOREIGN KEY(spot_id) REFERENCES test_spot(spot_id));
+
+create table doctor(doc_id varchar(25) NOT NULL UNIQUE primary key,doc_name varchar(25) NOT NULL
+,DOB date,contact varchar(25) NOT NULL,h_id varchar(25) NOT NULL ,
+FOREIGN KEY(h_id) REFERENCES hospital(h_id));
+
+create table doc_dept(doc_id varchar(25) NOT NULL primary key,department varchar(25));
+
+create table person(p_id varchar(25) NOT NULL UNIQUE primary key,first_name varchar(25) NOT NULL,
+last_name varchar(25) NOT NULL,gender varchar(25) NOT NULL,DOB date NOT NULL,
+address varchar(25) NOT NULL,spot_id varchar(25) 
+,h_id varchar(25) ,doc_id varchar(25) ,FOREIGN KEY(spot_id) REFERENCES test_spot(spot_id),
+FOREIGN KEY(h_id) REFERENCES hospital(h_id),FOREIGN KEY(doc_id) REFERENCES doctor(doc_id));
+
+create table person_contacts(p_id varchar(25) NOT NULL,contacts varchar(55) NOT null,
+FOREIGN KEY(p_id) REFERENCES person(p_id));
+
+create table test_room(room_id varchar(25) NOT NULL UNIQUE primary key,person_involved varchar(25) NOT NULL
+,contacts varchar(25) NOT NULL,floor int NOT NULL
+,time varchar(25) NOT NULL,Date date NOT NULL,spot_id varchar(25) NOT NULL,p_id varchar(25) NOT NULL,
+FOREIGN KEY(p_id) REFERENCES person(p_id),FOREIGN KEY(spot_id) REFERENCES person(spot_id));
+
+create table test_results(test_id varchar(25) NOT NULL primary key,
+result_type varchar(25) NOT NULL,comorbidity varchar(25) NOT NULL,
+quarantine_period varchar(25) NOT NULL,room_id varchar(25) ,
+FOREIGN KEY(room_id) references test_room(room_id));
+
+create table test_bill(p_id varchar(25) NOT NULL,receipt_no varchar(25) NOT NULL UNIQUE,
+bill_amount int NOT NULL,discount int ,payment_type varchar(25) NOT NULL,FOREIGN KEY(p_id) references person(p_id),
+PRIMARY KEY(receipt_no));
+
+create table medicine(Pres_id varchar(25) NOT NULL UNIQUE,medicine_name varchar(25) NOT NULL 
+,dosage varchar(25) NOT NULL,start_date date NOT NULL,
+end_date date NOT NULL,PRIMARY KEY(Pres_id));
+
+create table takes(Pres_id varchar(25) NOT NULL,p_id varchar(25) NOT NULL,foreign key(Pres_id) references
+medicine(Pres_id),foreign key(p_id) references person(p_id));
+
+create table bill_hospital(b_id varchar(25) NOT NULL UNIQUE,date_of_admission date NOT NULL,
+leave_date date NOT NULL,time varchar(25),hospital_bill_amount int NOT NULL,
+discount int ,p_id varchar(25) NOT NULL,
+FOREIGN KEY(p_id) references person(p_id),PRIMARY KEY(b_id));
+
+show tables;
+
+desc person;
+use dbms;
+desc person;
+use dbms;
+show tables;
+desc person;
+desc test_spot;
+insert into test_spot values('SP0001','Paldi','Ahmedabad','9393939393');
+insert into test_spot values('SP0002','thaltej','Gandhinagar','943939493');
+insert into test_spot values('SP0003','prahladnagar','Ahmedabad','9593959397');
+insert into test_spot values('SP0004','naroda','Ahmedabad','9593939396');
+select *from test_spot;
+desc person;
+insert into person values('P0001','shilp','patel','male','2001-10-26','Ahmedabad','SP0003',null,null);
+select *from person;
+select spot_name from test_spot,person where first_name='shilp' and person.spot_id=test_spot.spot_id;  
+use dbms;
+desc doctor;
+desc hospital;
+insert into hospital values('H0001','Sanjivni','Ahmedabad','9925008589','SP0002');
+insert into hospital values('H0002','Zydus','Gandhinagar','9925008584','SP0002');
+insert into hospital values('H0003','Sal','Ahmedabad','9925058589','SP0001');
+insert into hospital values('H0004','Apollo','Ahmedabad','9925408589','SP0003');
+insert into hospital values('H0005','Bodyline','Ahmedabad','9925008789','SP0004');
+select * from hospital;
+show tables;
+desc doc_dept;
+drop table doc_dept;
+create table doc_dept(doc_id varchar(25) NOT NULL ,department varchar(25) NOT NULL,foreign key(doc_id)
+references doctor(doc_id));
+desc doc_dept;
+select *from person;
+update person set h_id='H0004' where p_id='P0001';
+select *from person;
+desc doctor;
+insert into doctor values('D0001','Nitish kumar','1990-12-10','9375499974','H0005');
+insert into doctor values('D0002','muskan singh','1990-11-09','9375499874','H0002');
+insert into doctor values('D0003','Aashal shah','1990-01-10','9345499974','H0005');
+insert into doctor values('D0004','Prakhya Chopra','1991-12-10','9375497974','H0001');
+insert into doctor values('D0005','Sanjana mathur','1990-12-25','8375499974','H0003');
+insert into doctor values('D0006','Shilp patel','1990-02-10','9385499974','H0004');
+select * from  doctor;
+desc doc_dept;
+insert into doc_dept values('D0001','surgeon');
+insert into doc_dept values('D0002','paediatrician');
+insert into doc_dept values('D0003','paediatrician');
+insert into doc_dept values('D0004','paediatrician');
+insert into doc_dept values('D0005','paediatrician');
+insert into doc_dept values('D0004','paediatrician');
+select *from doc_dept;
+delete from doc_dept where doc_id='D0004';
+select *from doc_dept;
+insert into doc_dept values('D0004','paediatrician');
+insert into doc_dept values('D0006','paediatrician');
+select*from doc_dept;
+use dbms;
+desc person;
+show tables;
+desc person_contacts;
+desc person;
+select *from person;
+select *from person_contacts;
+use dbms;
+desc test_spot;
+select *from test_spot;
+select *from person;
+desc test_spot;
+desc person;
+insert into person values('P0006','dj','nigam','trans','2001-10-26','kanpur',null,null,null);
+use dbms;
+insert into person values('P0006','dj','nigam','trans','2001-10-26','kanpur',null,null,null);
+select *from person_contacts;
+select *from person;
+desc hospital;
+insert into hospital values('null','null','null','null','null');
+desc test_spot;
+insert into test_spot values('null','null','null','null');
+desc doctor;
+
+select *from person;
+select *from hospital;
+desc doctor;
+insert into doctor values('null','null',null,'null','null');
+select *from doctor;
+select *from person;
+
+use dbms;
+select *from medicine;
+show tables;
+desc test_bill;
+select * from person;
+select *from person_contacts;
+desc test_bill;
+alter table test_bill drop constraint test_bill_ibfk_1;
+alter table test_bill drop column p_id;
+alter table test_bill add(p_id varchar(25),foreign key(p_id) references person(p_id));
+desc test_bill;
+select *from test_bill;
+insert into test_bill values('RE0001',1000,null,'card','P0004');
+insert into test_bill values('RE0002',8000,null,'card','P0007');
+insert into test_bill values('RE0003',7000,500,'cash','P0001');
+insert into test_bill values('RE0004',10000,null,'sodex','P0002');
+insert into test_bill values('RE0005',5000,500,'cash','P0008');
+select *from test_bill;
+show tables;
+desc bill_hospital;
+insert into bill_hospital values('BH0001','2020-02-15','2020-02-29','12pm',10000,null,'P0007');
+insert into bill_hospital values('BH0002','2020-02-20','2020-03-15','12:30pm',90000,null,'P0004');
+insert into bill_hospital values('BH0003','2020-02-17','2020-03-01','12pm',95000,null,'P0002');
+insert into bill_hospital values('BH0004','2020-02-15','2020-02-29','12pm',80000,null,'P0008');
+insert into bill_hospital values('BH0005','2020-03-15','2020-03-30','1pm',100000,null,'P0001');
+select *from bill_hospital;
+desc hospital;
+select first_name,last_name,hospital_name from person,hospital where p_id='P0007' and person.h_id=hospital.h_id;
+use dbms;
+show tables;
+select *from test_spot;
+select *from person;
+select *from test_bill;
+select bill_amount from test_bill,person where first_name='harsh' and test_bill.p_id=person.p_id;
+select *from test_results;
+use dbms;
+show tables;
+select *from hospital;
+select *from person order by DOB;
+select *from person order by first_name;
+select *from hospital;
+update person set spot_id='SP0003' where p_id='P00012';
+update person set h_id='H0004' where p_id='P00012';
+select *from hospital;
+select *from doctor;
+update person set doc_id='D0006' where p_id='P00012';
+select *from person;
+select *from hospital;
+select *from hospital;
+alter table hospital drop column spot_id;
+alter table hospital drop constraint hospital_ibfk_1;
+alter table hospital drop column spot_id;
+alter table person drop column room_id;
+alter table person drop constraint person_ibfk_4;
+select *from person;
+select *from doctor;
+select *from hospital;
+use dbms
+
+
+
+
+

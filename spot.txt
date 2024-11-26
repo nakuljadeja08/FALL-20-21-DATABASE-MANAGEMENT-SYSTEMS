@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1 style="color:red;">Details about your Testing</h1>
+
+<form method="POST">
+  <label for="first_name">First name:</label><br>
+  <input type="text" id="first_name" name="first_name" ><br><br>
+  <label for="p_id">Register_id:</label><br>
+  <input type="text" id="p_id" name="p_id"><br><br>
+    <button> Submit </button>
+</form>
+<br><br>
+
+<table border="1">
+    {% for i in details %}
+    <tr>
+        <td><h3>Receipt no:</h3>{{i[0]}}</td>
+        <td><h3>Bill Amount:</h3>{{i[1]}}</td>
+        <td><h3>Payment type:</h3>{{i[2]}}</td>
+    </tr>
+     {% endfor %}
+</table>
+<br><br>
+
+<table border="1">
+    {% for i in que1 %}
+    <tr>
+        <td><h3>Spot Name:</h3>{{i[0]}}</td>
+    </tr>
+     {% endfor %}
+</table>
+<br><br>
+
+<table border="1">
+    {% for i in que2 %}
+    <tr>
+        <td><h3>Result:</h3>{{i[0]}}</td>
+
+    </tr>
+     {% endfor %}
+</table>
+</body>
+</html>

@@ -1,0 +1,17 @@
+Help file to access the implementation
+
+1)Open any python software ide or pycharm,pycharm has higher preference over ide
+ 
+2)open project.py file inside your pycharm
+ 
+3)Run project.py
+
+4)One url will be generated as soon as you run the file,click on the that url to visit our site
+
+5)If you want to access details about your testing,pls run the file again,click on the url generated 
+for example if the url is of the type ' http://127.0.0.1:5000/' pls enter /findspot to see details about your testing
+ 
+6)Similarly if you want to access details about your doctor or the hospital run the file ,click on the url generated 
+ for example if the url is of the type ' http://127.0.0.1:5000/' pls enter /hospital_details to see details about your hospital
+
+7)User will enter his respective details on the website and the output will be generated there itself.

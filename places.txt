@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="1">
+    {% for spots in spot_details %}
+    <tr>
+        <td>{{spots[0]}}</td>
+        <td>{{spots[1]}}</td>
+        <td>{{spots[2]}}</td>
+        <td>{{spots[3]}}</td>
+    </tr>
+     {% endfor %}
+</table>
+</body>
+</html>
